@@ -1,0 +1,23 @@
+[mysqld]
+# storage engines
+disabled_storage_engines="MyISAM,BLACKHOLE,FEDERATED,ARCHIVE,MEMORY"
+
+# replication framework
+server_id=1
+gtid_mode=ON
+enforce_gtid_consistency=ON
+
+binlog_checksum=NONE
+
+log_bin=binlog
+log_slave_updates=ON
+binlog_format=ROW
+master_info_repository=TABLE
+relay_log_info_repository=TABLE
+transaction_write_set_extraction=XXHASH64
+
+# group replication settings
+loose-group_replication_group_name="67ab7983-55fa-43ba-8257-fca2e5a649d0"
+loose-group_replication_start_on_boot=on
+loose-group_replication_local_address="localhost:33061"
+loose-group_replication_bootstrap_group=on
