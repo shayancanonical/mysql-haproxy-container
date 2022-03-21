@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   haproxy-mysql:
-    image: haproxy-mysql:dev
+    image: mysql-haproxy:dev
     volumes:
       - ./haproxy-configs:/configs
     ports:
