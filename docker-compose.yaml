@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  haproxy-mysql:
+    image: mysql-haproxy:dev
+    volumes:
+      - ./haproxy-configs:/configs
+    ports:
+      - 3307:3307
+      - 3308:3308
+    networks:
+      - mysql
+  mysql:
+    image: ubuntu/mysql:8.0-20.04_beta
+    volumes:
+      - ./mysql-configs/mysql-group-replication.cnf:/etc/mysql/conf.d/mysql-group-replication.cnf
+      - ./mysql/install_group_replication.sql:/docker-entrypoint-initdb.d/install_group_replication.sql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_password
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=test
+    ports:
+      - 3306:3306
+    networks:
+      - mysql
+
+networks:
+  mysql:
+    driver: bridge
